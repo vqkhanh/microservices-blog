@@ -21,7 +21,6 @@ app.post("/posts", async (req, res) => {
     id,
     title,
   };
-
   await axios
     .post("http://localhost:4005/events", {
       type: "PostCreate",
@@ -31,10 +30,14 @@ app.post("/posts", async (req, res) => {
       },
     })
     .catch((err) => {
-      console.log(err.message);
+      console.log(err);
     });
-
   res.status(201).send(posts[id]);
+});
+
+app.post("/events", (req, res) => {
+  console.log("Receive event", req.body.type);
+  res.send({});
 });
 
 app.listen(4000, () => {
